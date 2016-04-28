@@ -1,0 +1,198 @@
+.todo-note-saving {
+  cursor: default;
+  .glyphicon.spinning {
+    opacity: 0;
+    width: 0;
+    display: inline-block;
+    transition: opacity 0.33s, width 0.33s;
+    animation: spin 1s infinite linear;
+    &.visible {
+      opacity: 1;
+      width: 10px;
+      cursor: wait;
+    }
+  }
+}
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
+}
+
+
+// Todo app styles
+.todo-app {
+  header.header {
+    text-decoration: underline;
+  }
+  margin-top: 60px;
+  ul.todo-list li {
+    .todo-date {
+      color: rgba(1, 1, 1, 0.9);
+      font-size: small;
+      display: inline-block;
+      margin: 6px 30px 0;
+      &:hover {
+        cursor: help;
+      }
+    }
+
+    &.editing {
+      & button {
+        display: none;
+      }
+      & input[type=checkbox] {
+        display: none;
+      }
+    }
+    &:hover {
+      background-color: white;
+    }
+  }
+  li.completed input[type=checkbox] {
+    color: rgba(255, 0, 255, 1);
+  }
+
+  input[type=checkbox], li button {
+    color: rgba(0, 0, 0, 0.2);
+    appearance: none;
+    background: none;
+    border: none;
+    &:hover {
+      cursor: pointer;
+      &:not(:checked):not(.has-note){
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    &:focus {
+      outline: none;
+    }
+    &.todo-item-checkbox {
+      &::before {
+        content:"\e013";
+      }
+    }
+    &.toggle-all-button {
+      position: absolute;
+      width: 60px;
+      height: 30px;
+      text-align: center;
+      margin: 15px 0 0;
+      &::before {
+        content:"\e013";
+        font-size: 22px;
+      }
+      &:hover {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    &.remove-button {
+      padding: 0;
+      margin: 7px 7px;
+
+      &::before {
+        content:"\2212";
+      }
+    }
+    &.has-note {
+      padding: 0;
+      margin: 8px 0 0 0;
+      position: absolute;
+      left: -30px;
+      &::before {
+        content:"\e052";
+      }
+    }
+  }
+
+  .todo-footer {
+    margin: 10px 40px;
+    display: inline-table;
+    .todo-count {
+      margin:0 5px 0 0;
+    }
+    .label {
+      margin:0 5px;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      }
+      &.clear-completed:hover {
+        background-color: #cc0000;
+      }
+    }
+  }
+}
+section.todo-detail {
+  margin: 40px 0;
+  padding: 20px 10px;
+  background-color: white;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+
+  header {
+    padding: 20px 10px;
+  }
+
+  section.todo-detail-main {
+    padding: 0 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        margin: 10px 0;
+        input.edit-detail {
+          border: none;
+          background-color: #EFEFEF;
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  textarea {
+    width: 100%;
+  }
+  .label.label-btn {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+    }
+  }
+}
+.app-card {
+  margin: 20px 0 35px 0;
+  padding: 0;
+  background-color: whitesmoke;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.new-todo-item {
+  position: relative;
+  padding: 15px 15px 15px 60px;
+  border: none;
+  width: 100%;
+
+  font-size: 24px;
+  line-height: 1.4em;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .view {
+    margin: 0 20px 0 50px;
+    position: relative;
+  }
+  .completed {
+    label {
+      text-decoration: line-through;
+    }
+  }
+}

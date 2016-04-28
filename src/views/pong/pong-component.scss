@@ -1,0 +1,14 @@
+body {
+  background-color: black;
+}
+#canvas-wrapper {
+  margin: 0 30px;
+}
+
+div.pong-game .ui-row {
+  color: white;
+  margin-top: 50px;
+  .score {
+    font-size: 4em;
+  }
+}

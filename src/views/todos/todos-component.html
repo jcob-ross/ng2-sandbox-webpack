@@ -1,0 +1,83 @@
+<section class="container todo-app">
+  <header class="row header">
+    <div class="text-center">
+      <h5>Tiny todo-list project. Uses local storage for persistence.</h5>
+    </div>
+  </header>
+  <section class="row">
+
+    <div class="col-md-6 app-card">
+      <section class="todo-card">
+        <header class="card-header">
+          <input class="new-todo-item"
+                 placeholder="What needs to be done?"
+                 autofocus=""
+                 [(ngModel)]="newTodoText"
+                 (keyup.enter)="addTodo()">
+        </header>
+      </section>
+
+      <section class="main" *ngIf="todoStore.todos.length > 0">
+        <input class="toggle-all-button glyphicon"
+               type="checkbox"
+               *ngIf="todoStore.todos.length"
+               #toggleAll
+               [checked]="todoStore.allCompleted()"
+               (click)="todoStore.setAll(toggleAll.checked)">
+
+        <ul class="todo-list">
+          <li *ngFor="#todo of todoStore.todos"  [class.completed]="todo.completed"
+              (click)="selectTodo(todo)">
+            <div class="view" *ngIf="!hideCompleted || (hideCompleted && !todo.completed)">
+              <input class="glyphicon todo-item-checkbox"
+                     type="checkbox"
+                     (click)="toggleComplete(todo)"
+                     [checked]="todo.completed">
+
+              <label>{{todo.title}}</label>
+              <button *ngIf="todo.hasNote" class="has-note glyphicon pull-left"></button>
+              <span class="pull-right">
+                <span class="todo-date" [tooltip]="todo.getDateNice('MMMM Do YYYY, h:mm:ss')">{{todo.dateFromNow}}</span>
+                <button class="remove-button glyphicon pull-right" (click)="remove(todo)"></button>
+              </span>
+
+            </div>
+          </li>
+        </ul>
+        <footer class="todo-footer" *ngIf="todoStore.todos.length > 0">
+          <span class="todo-count">
+            <strong>{{todoStore.getRemaining().length}}</strong> {{todoStore.getRemaining().length == 1 ? 'item' : 'items'}} left
+          </span>
+          <span class="hide-completed label label-primary" *ngIf="todoStore.getCompleted().length > 0" (click)="hideCompleted = !hideCompleted">
+            <span *ngIf="!hideCompleted">Hide completed</span>
+            <span *ngIf="hideCompleted">Show completed</span>
+          </span>
+          <span class="clear-completed label label-default" *ngIf="todoStore.getCompleted().length > 0" (click)="removeCompleted()">
+            Clear completed
+          </span>
+        </footer>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <todo-detail *ngIf="selectedTodo" [todoItem]="selectedTodo">bla</todo-detail>
+    </div>
+
+  </section>
+  <footer class="row footer">
+    <div class="">
+      <h5>Todo item</h5>
+      <ul>
+        <li>Add on key enter</li>
+        <li>Hiding completed</li>
+        <li>Removing completed</li>
+      </ul>
+      <br>
+      <h5>Note details</h5>
+      <ul>
+        <li>Save value on key enter or button press</li>
+        <li>Rollback value on cancel</li>
+        <li>Note persistence via local storage - value debounced and saved (indicated by label)</li>
+      </ul>
+    </div>
+  </footer>
+</section>

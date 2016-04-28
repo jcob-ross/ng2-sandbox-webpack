@@ -1,0 +1,44 @@
+<section class="todo-detail" *ngIf="todoItem">
+  <header><h4>Detail view</h4></header>
+  <section class="todo-detail-main">
+
+    <ul>
+      <li>
+        <div class="title-detail">
+          <span *ngIf="!editingTitle">{{todoItem.title}}</span>
+          <input class="edit-detail" *ngIf="editingTitle" type="text" [(ngModel)]="todoItem.title" (keyup.enter)="saveTitleChanges()">
+          <span class="label-btn label label-info" *ngIf="!editingTitle" (click)="startEditingTitle()">Edit</span>
+          <span class="label-btn label label-success" *ngIf="editingTitle" (click)="saveTitleChanges()">Save</span>
+          <span class="label-btn label label-warning" *ngIf="editingTitle" (click)="discardTitleChanges()">Cancel</span>
+        </div>
+      </li>
+      <li>
+        <div class="created-detail">
+          <span>Created: {{todoItem.getDateNice('MMMM Do YYYY, h:mm:ss')}}</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="todo-note">
+      <textarea
+          id="note-textarea"
+          autosize
+          maxlength="3000"
+          *ngIf="todoItem.hasNote"
+          [ngModel]="todoItem.note"
+          (ngModelChange)="noteContentChanged($event)">
+      </textarea>
+      <span class="label-btn label label-info" *ngIf="!todoItem.hasNote" (click)="todoItem.hasNote = true; noteLength = 0;">Add note</span>
+      <span class="label-btn label label-warning" *ngIf="todoItem.hasNote" (click)="todoItem.hasNote = false">Remove note</span>
+      <span class="todo-note-charcount" *ngIf="todoItem.hasNote">{{noteLength}}/3000</span>
+      <span class="todo-note-saving">
+        <span class="label" [ngClass]="{'label-success': !updating, 'label-warning': updating}">
+          <i class="glyphicon glyphicon-refresh spinning" [class.visible]="updating"></i>
+          <span *ngIf="updating">Saving...</span>
+          <span *ngIf="!updating">Saved</span>
+        </span>
+      </span>
+    </div>
+
+  </section>
+</section>
