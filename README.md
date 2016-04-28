@@ -1,6 +1,9 @@
 
 *Personal Angular 2 / typescript playground based on Angular2-webpack-starter by @AngularClass et. al.*
 
+live here: https://obscure-mesa-47214.herokuapp.com/
+
+
 - Angular2
 - ng2-bootstrap
 - Momentjs
